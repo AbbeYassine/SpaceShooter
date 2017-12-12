@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+
 
 
 [System.Serializable]
@@ -24,17 +26,23 @@ public class PlayerController : MonoBehaviour {
 
     private float nextFire;
 
+    public AudioSource audio;
+    
+
     void Update ()
     {
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            audio.Play();
+           
         }
     }
 
 	void Start(){
 		rigidbody = GetComponent<Rigidbody>();
+		audio = GetComponent<AudioSource>();
 	}
 	void FixedUpdate(){
 		float moveHorizontal = Input.GetAxis ("Horizontal");
